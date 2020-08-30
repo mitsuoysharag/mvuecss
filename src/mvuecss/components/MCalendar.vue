@@ -1,19 +1,29 @@
 <template>
   <div>
-    <p>Year: {{year}}</p>
-    <p>Month: {{months[month]}}</p>
-
-    <m-btn @click="today()" small>Now</m-btn>
-    <m-btn @click="prev()" small>Prev</m-btn>
-    <m-btn @click="next()" small>Next</m-btn>
-
     <div class="my-1"></div>
 
     <section class="calendar">
-      <div v-for="(_, idx) in Array(7)" :key="idx+'_'" class="day-week">{{days[idx]}}</div>
-      <div v-for="(_, idx) in Array(42)" :key="idx">
-        <div v-show="false">{{day = getDayValuesByIdx(idx)}}</div>
-        <div class="day" :class="day.classname">{{day.number}}</div>
+      <div class="calendar__control">
+        <span class="calendar__month">{{`${months[month]} de ${year}`}}</span>
+        <div>
+          <m-btn @click="today()" color="dark" small class="mr-1">now</m-btn>
+          <m-btn @click="prev()" small class="mr-1">prev</m-btn>
+          <m-btn @click="next()" small>next</m-btn>
+        </div>
+      </div>
+
+      <div class="calendar__body">
+        <div
+          v-for="(_, idx) in Array(7)"
+          :key="idx+'_'"
+          class="day-week"
+        >{{days[idx].substring(0, 3)}}</div>
+        <div v-for="(_, idx) in Array(42)" :key="idx">
+          <div v-show="false">{{day = getDayValuesByIdx(idx)}}</div>
+          <div class="day" :class="day.classname">
+            <span class="day__number">{{day.number}}</span>
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -86,6 +96,12 @@ export default {
       } else if (number > this.total_days) {
         number = number - this.total_days;
         classname = "day--disabled";
+      } else if (
+        this.now.getFullYear() === this.date.getFullYear() &&
+        this.now.getMonth() === this.date.getMonth() &&
+        number === this.now.getDate()
+      ) {
+        classname = "day--now";
       }
       return { number, classname };
     },
@@ -113,28 +129,43 @@ export default {
   border-radius: 6px;
   box-shadow: 0 2px 10px #ccc;
 
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  &__control {
+    padding: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  &__month {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
 }
 
 .day-week {
   padding: 18px;
-  background: rgb(23, 138, 226);
-
-  color: #fff;
-  text-align: center;
-  text-transform: uppercase;
+  color: rgb(100, 100, 100);
   font-weight: bold;
+  font-size: 0.85rem;
+  text-align: center;
 }
 
 .day {
   height: 100px;
-  padding: 10px;
+  padding: 5px;
 
   transition: 0.3s;
   cursor: pointer;
-
   user-select: none;
+
+  display: flex;
+  justify-content: center;
 
   &:hover {
     background: #eaf3ff;
@@ -143,8 +174,23 @@ export default {
     background: #cde3ff;
   }
 
+  &__number {
+    height: max-content;
+    padding: 10px;
+    border-radius: 50%;
+    font-weight: bold;
+  }
+
   &--disabled {
-    color: #ccc;
+    .day__number {
+      color: #bbbbbb;
+    }
+  }
+  &--now {
+    .day__number {
+      background: rgb(23, 138, 226);
+      color: #fff;
+    }
   }
 }
 </style>
