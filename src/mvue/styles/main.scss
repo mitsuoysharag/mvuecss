@@ -1,0 +1,20 @@
+@import "./_animations.scss";
+@import "./_colors.scss";
+@import "./_variables.scss";
+
+@import "./m-btn.scss";
+@import "./m-card.scss";
+@import "./m-dialog.scss";
+@import "./m-alert.scss";
+
+@import url("https://fonts.googleapis.com/css2?family=Alata&family=Comfortaa:wght@300;400;500;600;700&display=swap");
+
+body {
+  margin: 0;
+}
+
+* {
+  font-family: Comfortaa, Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  color: var(--color-font);
+}
