@@ -30,6 +30,10 @@ export default {
       {
         title: "Card",
         action: () => this.redirect(`/${this.view}/card`)
+      },
+      {
+        title: "Calendar",
+        action: () => this.redirect(`/${this.view}/calendar`)
       }
     ];
   },
