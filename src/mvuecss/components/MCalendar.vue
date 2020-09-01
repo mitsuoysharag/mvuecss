@@ -40,6 +40,7 @@
       </div>
     </section>
 
+    <!-- EVENT SELECTED -->
     <div
       ref="m-event"
       class="event m-card"
@@ -130,7 +131,7 @@ export default {
         let event_top = top;
         // use card_bounds.height or 500 (visual comfort)
         // if (event_top + card_bounds.height > window.innerHeight)
-        if (event_top + 500 > window.innerHeight)
+        if (event_top + 450 > window.innerHeight)
           event_top = bottom - card_bounds.height;
 
         this.event_selected_style = {
@@ -190,8 +191,8 @@ export default {
       let elements = document.getElementsByClassName("day");
       elements.forEach((element) => {
         let { width } = element.getBoundingClientRect();
-        let new_height = (width * 4) / 5;
-        element.style.minHeight = `${new_height}px`;
+        let new_min_height = Math.max((width * 4) / 5, 80);
+        element.style.minHeight = `${new_min_height}px`;
       });
     },
     _formatDate(date) {
@@ -245,7 +246,7 @@ export default {
     font-weight: bold;
   }
   &__day-week {
-    padding: 18px;
+    padding: 18px 0;
     color: rgb(100, 100, 100);
     font-weight: bold;
     font-size: 0.85rem;
@@ -271,24 +272,29 @@ export default {
   }
 
   &__number {
-    height: max-content;
-    padding: 10px;
+    height: 32px;
+    width: 32px;
     border-radius: 50%;
+    font-size: 0.9rem;
     font-weight: bold;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   &__events {
     width: 100%;
   }
   &__event {
     overflow: hidden;
-    max-height: 40px;
+    max-height: 24px;
     padding: 5px;
     margin-top: 4px;
 
     font-size: 0.9rem;
     color: #fff;
     text-align: center;
-    border-radius: 20px;
+    border-radius: 4px;
   }
 
   &--disabled {
@@ -316,7 +322,6 @@ export default {
   }
   &__body {
     max-height: 350px;
-    padding: 30px;
     padding-top: 0;
     overflow-y: auto;
   }
@@ -329,7 +334,6 @@ export default {
     font-size: 1.6rem;
   }
   &__date {
-    margin-bottom: 0;
     font-size: 0.9rem;
   }
   &__icon {
@@ -342,6 +346,36 @@ export default {
   &--disabled {
     opacity: 0;
     pointer-events: none;
+  }
+}
+
+@include media-breakpoint(md) {
+  .calendar {
+    &__control {
+      padding: 0;
+    }
+    &__day-week {
+      padding: 10px 0;
+    }
+  }
+  .day {
+    padding: 1px;
+    &__number {
+      height: 20px;
+      width: 20px;
+    }
+    &__event {
+      margin-top: 1px;
+      padding: 1px;
+    }
+  }
+  .event {
+    top: 0 !important;
+    left: 0 !important;
+    max-width: 100% !important;
+    height: 100%;
+
+    border-radius: 0;
   }
 }
 </style>

@@ -1,4 +1,5 @@
 @import "./_normalize.scss";
+@import "./_breakpoints.scss";
 @import "./_layout.scss";
 @import "./_scroll.scss";
 @import "./_animations.scss";
@@ -24,8 +25,23 @@ body {
   color: var(--color-font);
 }
 
-@media (max-width: 768px) {
+@include media-breakpoint(lg) {
   html {
-    font-size: 70%
+    font-size: 100%;
+  }
+}
+@include media-breakpoint(md) {
+  html {
+    font-size: 90%;
+  }
+}
+@include media-breakpoint(sm) {
+  html {
+    font-size: 80%;
+  }
+}
+@include media-breakpoint(xs) {
+  html {
+    font-size: 70%;
   }
 }
