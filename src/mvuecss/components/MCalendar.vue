@@ -96,7 +96,7 @@ export default {
     show_event: false,
     event_selected: {},
     event_selected_style: {},
-    event_maxWidth: 450,
+    event_maxWidth: 400,
     //
     year: null,
     month: null,
@@ -257,7 +257,7 @@ export default {
 .day {
   padding: 5px;
   transition: var(--time-transition);
-  cursor: pointer;
+  // cursor: pointer;
   user-select: none;
 
   display: flex;
@@ -267,9 +267,9 @@ export default {
   &:hover {
     background: #eaf3ff;
   }
-  &:active {
-    background: #cde3ff;
-  }
+  // &:active {
+  //   background: #cde3ff;
+  // }
 
   &__number {
     height: 32px;
@@ -290,6 +290,7 @@ export default {
     max-height: 24px;
     padding: 5px;
     margin-top: 4px;
+    cursor: pointer;
 
     font-size: 0.9rem;
     color: #fff;
@@ -370,10 +371,11 @@ export default {
     }
   }
   .event {
+    min-width: 100%;
     top: 0 !important;
+    bottom: 0 !important;
     left: 0 !important;
-    max-width: 100% !important;
-    height: 100%;
+    right: 0 !important;
 
     border-radius: 0;
   }
