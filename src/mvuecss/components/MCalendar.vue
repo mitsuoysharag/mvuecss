@@ -57,6 +57,8 @@
       <div class="event__body m-card__body">
         <h2 class="event__title">{{event_selected.title}}</h2>
         <p class="event__date">{{_formatDate(event_selected.date || new Date())}}</p>
+        <!-- CUSTOM INFO -->
+        <slot :event="event_selected"></slot>
       </div>
       <div v-if="false" class="event__actions m-card__actions">
         <m-btn color="primary" small>Ver Más</m-btn>
