@@ -45,7 +45,7 @@
       ref="m-event"
       class="event m-card"
       :class="{'event--disabled': !show_event}"
-      :style="{ maxWidth: `${event_maxWidth}px`, ...event_selected_style}"
+      :style="{ width: `${event_width}px`, ...event_selected_style}"
     >
       <div class="event__menu m-card__actions">
         <m-btn @click="show_event = false" icon>
@@ -96,7 +96,7 @@ export default {
     show_event: false,
     event_selected: {},
     event_selected_style: {},
-    event_maxWidth: 400,
+    event_width: 400,
     //
     year: null,
     month: null,
@@ -124,9 +124,9 @@ export default {
         let card_bounds = this.$refs["m-event"].getBoundingClientRect();
 
         let event_left = right + 10;
-        // use this.event_maxWidth or card_bounds.width
-        if (event_left + this.event_maxWidth > window.innerWidth)
-          event_left = left - this.event_maxWidth - 10;
+        // use this.event_width or card_bounds.width
+        if (event_left + this.event_width > window.innerWidth)
+          event_left = left - this.event_width - 10;
 
         let event_top = top;
         // use card_bounds.height or 500 (visual comfort)
@@ -371,11 +371,12 @@ export default {
     }
   }
   .event {
-    min-width: 100%;
+    height: 100vh !important;
+    width: 100vw !important;
+
+    position: fixed;
     top: 0 !important;
-    bottom: 0 !important;
     left: 0 !important;
-    right: 0 !important;
 
     border-radius: 0;
   }

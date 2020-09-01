@@ -3,6 +3,7 @@
     <div
       class="m-dialog__body"
       :class="{'m-dialog__body--animated': this.animated}"
+      :style="{'width': `${width}px`}"
       @click="$event.stopPropagation()"
     >
       <slot></slot>
@@ -17,6 +18,10 @@ export default {
     value: {
       type: Boolean,
       default: false,
+    },
+    width: {
+      type: [Number, String],
+      default: 400,
     },
     persistent: {
       type: Boolean,
