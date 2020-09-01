@@ -1,49 +1,50 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+// import Home from '../views/Home.vue'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
+  // {
+  //   path: '/',
+  //   name: 'home',
+  //   component: Home
+  // },
   {
-    path: '/',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/components',
-    name: 'components',
-    component: () => import('../views/Components.vue'),
+    // path: '/components',
+    path: "/",
+    name: "components",
+    component: () => import("../views/Components.vue"),
     children: [
       {
-        alias: '',
-        path: 'button',
-        component: () => import('../components/Components/Button.vue')
+        alias: "",
+        path: "button",
+        component: () => import("../components/Components/Button.vue"),
       },
       {
-        alias: '',
-        path: 'alert',
-        component: () => import('../components/Components/Alert.vue')
+        alias: "",
+        path: "alert",
+        component: () => import("../components/Components/Alert.vue"),
       },
       {
-        alias: '',
-        path: 'dialog',
-        component: () => import('../components/Components/Dialog.vue')
+        alias: "",
+        path: "dialog",
+        component: () => import("../components/Components/Dialog.vue"),
       },
       {
-        path: 'card',
-        component: () => import('../components/Components/Card.vue')
+        path: "card",
+        component: () => import("../components/Components/Card.vue"),
       },
       {
-        path: 'calendar',
-        component: () => import('../components/Components/Calendar.vue')
-      }
-    ]
-  }
-]
+        path: "calendar",
+        component: () => import("../components/Components/Calendar.vue"),
+      },
+    ],
+  },
+];
 
 const router = new VueRouter({
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

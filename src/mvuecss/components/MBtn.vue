@@ -12,7 +12,6 @@ export default {
   props: {
     color: {
       type: String,
-      default: "primary",
     },
     small: {
       type: Boolean,
@@ -38,6 +37,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    icon: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     classes() {
@@ -50,6 +53,7 @@ export default {
         "m-btn--block": this.block,
         "m-btn--rounded": this.rounded,
         "m-btn--disabled": this.disabled,
+        "m-btn--icon": this.icon,
       };
     },
     // Source: https://es.vuejs.org/v2/guide/components-custom-events.html

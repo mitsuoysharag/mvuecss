@@ -1,9 +1,6 @@
 <template>
-  <div class="m-container">
-    <section>
-      <h2>Calendar</h2>
-      <m-calendar :events="events"></m-calendar>
-    </section>
+  <div>
+    <m-calendar :events="events"></m-calendar>
   </div>
 </template>
 
@@ -28,7 +25,12 @@ export default {
       },
       {
         title: "Mi evento 4",
-        date: new Date(2020, 7, 24),
+        date: new Date(2020, 7, 19),
+        color: "#178ae2",
+      },
+      {
+        title: "Mi evento 4.5",
+        date: new Date(2020, 7, 19),
         color: "#178ae2",
       },
       {

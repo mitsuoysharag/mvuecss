@@ -65,6 +65,29 @@
     box-shadow: none !important;
   }
 
+  &--icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+    &:active {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    & .fa {
+      font-size: 160%;
+    }
+  }
+
   @each $key, $value in $colors {
     &--#{$key} {
       background: nth($value, 3);

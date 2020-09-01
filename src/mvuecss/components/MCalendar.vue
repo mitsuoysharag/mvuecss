@@ -3,10 +3,16 @@
     <section class="calendar">
       <div class="calendar__control">
         <span class="calendar__month">{{`${months[month]} de ${year}`}}</span>
-        <div>
-          <m-btn @click="today()" color="dark" small class="mr-1">now</m-btn>
-          <m-btn @click="prev()" small class="mr-1">prev</m-btn>
-          <m-btn @click="next()" small>next</m-btn>
+        <div class="calendar__actions">
+          <m-btn @click="today()" icon class="mr-1">
+            <i class="fa fa-calendar-o"></i>
+          </m-btn>
+          <m-btn @click="prev()" icon class="mr-1">
+            <i class="fa fa-angle-left"></i>
+          </m-btn>
+          <m-btn @click="next()" icon>
+            <i class="fa fa-angle-right"></i>
+          </m-btn>
         </div>
       </div>
 
@@ -41,18 +47,17 @@
       :style="{ maxWidth: `${event_maxWidth}px`, ...event_selected_style}"
     >
       <div class="event__menu m-card__actions">
-        <div @click="show_event = false" class="event__btn">
+        <m-btn @click="show_event = false" icon>
           <svg class="event__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
             <path fill="none" d="M0 0 36 36 M36 0 0 36" />
           </svg>
-        </div>
+        </m-btn>
       </div>
       <div class="event__body m-card__body">
         <h2 class="event__title">{{event_selected.title}}</h2>
-        <h3>Fecha:</h3>
-        <p>{{(event_selected.date || new Date()).toLocaleString()}}</p>
+        <p class="event__date">{{_formatDate(event_selected.date || new Date())}}</p>
       </div>
-      <div class="event__actions m-card__actions">
+      <div v-if="false" class="event__actions m-card__actions">
         <m-btn color="primary" small>Ver Más</m-btn>
       </div>
     </div>
@@ -123,7 +128,9 @@ export default {
           event_left = left - this.event_maxWidth - 10;
 
         let event_top = top;
-        if (event_top + card_bounds.height > window.innerHeight)
+        // use card_bounds.height or 500 (visual comfort)
+        // if (event_top + card_bounds.height > window.innerHeight)
+        if (event_top + 500 > window.innerHeight)
           event_top = bottom - card_bounds.height;
 
         this.event_selected_style = {
@@ -187,6 +194,12 @@ export default {
         element.style.minHeight = `${new_height}px`;
       });
     },
+    _formatDate(date) {
+      let options = { month: "long", day: "numeric", weekday: "long" };
+      let date_format = date.toLocaleDateString("es-ES", options);
+      date_format = date_format.charAt(0).toUpperCase() + date_format.slice(1);
+      return date_format;
+    },
     // CALENDAR CONTROL
     today() {
       this.date = this.now;
@@ -222,7 +235,12 @@ export default {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
   }
+  &__actions {
+    display: flex;
+  }
+
   &__month {
+    padding-left: 10px;
     font-size: 1.5rem;
     font-weight: bold;
   }
@@ -264,19 +282,18 @@ export default {
   &__event {
     overflow: hidden;
     max-height: 40px;
-    padding: 4px;
+    padding: 5px;
     margin-top: 4px;
 
-    font-size: .9rem;
+    font-size: 0.9rem;
     color: #fff;
     text-align: center;
     border-radius: 20px;
   }
 
   &--disabled {
-    .day__number {
-      color: #bbbbbb;
-    }
+    opacity: 0.3;
+    pointer-events: none;
   }
   &--now {
     .day__number {
@@ -290,8 +307,8 @@ export default {
   width: 100%;
 
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
   transition: var(--time-transition);
 
   &__menu {
@@ -299,6 +316,7 @@ export default {
   }
   &__body {
     max-height: 350px;
+    padding: 30px;
     padding-top: 0;
     overflow-y: auto;
   }
@@ -307,29 +325,13 @@ export default {
   }
 
   &__title {
-    margin-bottom: 24px;
-    font-size: 1.8rem;
+    margin-bottom: 12px;
+    font-size: 1.6rem;
   }
-
-  &__btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: var(--time-transition);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &:hover {
-      background: rgb(228, 228, 228);
-    }
-    &:active {
-      background: rgb(200, 200, 200);
-    }
+  &__date {
+    margin-bottom: 0;
+    font-size: 0.9rem;
   }
-
   &__icon {
     flex-shrink: 0;
     width: 12px;
@@ -337,7 +339,6 @@ export default {
     stroke-width: 6;
     stroke: rgb(46, 46, 46);
   }
-
   &--disabled {
     opacity: 0;
     pointer-events: none;
